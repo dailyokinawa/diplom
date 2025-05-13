@@ -1,5 +1,5 @@
 <?php
-require './php/basketdb.php'; // Подключение к базе данных
+require 'basketdb.php'; // Подключение к базе данных
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Получение данных из формы

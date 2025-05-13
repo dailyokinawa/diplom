@@ -211,36 +211,54 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // form
 
-    const form = document.querySelector('.form')
+const form = document.querySelector('.form');
+const subscribeModal = document.getElementById('subscribeModal');
+const closeSubscribeModal = document.getElementById('closeSubscribeModal');
 
-    if (form) {
-        new window.JustValidate('.form', {
-            messages: {
-                email: {
-                    required: 'Введите E-mail'
-                }
-            },
-            submitHandler: function (thisForm) {
-                let formData = new FormData(thisForm);
+if (form) {
+    new window.JustValidate('.form', {
+        messages: {
+            email: {
+                required: 'Введите E-mail',
+                email: 'Введите корректный E-mail'
+            }
+        },
+        submitHandler: function (thisForm) {
+            let formData = new FormData(thisForm);
 
-                let xhr = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            alert('Форма успешно отправлена')
-                        }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log('Форма успешно отправлена:', xhr.responseText);
+
+                        // Показываем модальное окно
+                        subscribeModal.classList.remove('hidden');
+                        subscribeModal.style.visibility = 'visible';
+                        subscribeModal.style.opacity = '1';
+
+                        // Очищаем форму
+                        thisForm.reset();
+                    } else {
+                        console.error('Ошибка при отправке формы:', xhr.status);
+                        alert('Произошла ошибка при подписке. Попробуйте снова.');
                     }
                 }
+            };
 
-                xhr.open('POST', 'mail.php', true);
-                xhr.send(formData);
+            xhr.open('POST', 'mail.php', true);
+            xhr.send(formData);
+        }
+    });
 
-                thisForm.reset();
-            }
-        })
-
-    }
+    // Закрытие модального окна
+    closeSubscribeModal.addEventListener('click', function () {
+        subscribeModal.classList.add('hidden');
+        subscribeModal.style.visibility = 'hidden';
+        subscribeModal.style.opacity = '0';
+    });
+}
 
 })
 

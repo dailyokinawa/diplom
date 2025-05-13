@@ -41,45 +41,53 @@
             <div class="serve__container container">
                 <div class="serve__inner">
                     <h2 class="title-serve title">Для брони заполните форму</h2>
-                    <form id="serveForm" action="./php/save_reserve.php" method="POST" class="serve__form">
-                        <div class="serve__form-row">
-                            <label class="serve__form-label">
-                                <input type="text" name="фио" class="serve__form-input" required placeholder="Укажите ФИО">
-                            </label>
-                        </div>
-                        <div class="serve__form-row">
-                            <label class="serve__form-label">
-                                <input type="text" name="номер" class="serve__form-input" required placeholder="Укажите номер телефона">
-                            </label>
-                        </div>
-                        <div class="serve__form-row">
-                            <label class="serve__form-label">
-                                <input type="number" name="человек" class="serve__form-input" required placeholder="Укажите количество человек" min="1">
-                            </label>
-                        </div>
-                        <div class="serve__form-row">
-                            <label class="serve__form-label">
-                                <input type="datetime-local" name="дата" id="datetime" class="serve__form-input" required placeholder="Выберите дату и время" value="2025-04-12T12:00">
-                            </label>
-                        </div>
-                        <div class="serve__form-row">
-                            <label class="serve__form-label">
-                                <select name="столик" class="serve__form-input" required>
-                                    <option value="">Выберите столик</option>
-                                    <option value="table1">Столик 1</option>
-                                    <option value="table2">Столик 2</option>
-                                    <option value="table3">Столик 3</option>
-                                    <option value="table4">Столик 4</option>
-                                    <option value="table5">Столик 5</option>
-                                    <option value="table6">Столик 6</option>
-                                    <option value="table7">Столик 7</option>
-                                    <option value="table8">Столик 8</option>
-                                </select>
-                            </label>
-                        </div>
-                        <button class="serve__form-btn" type="submit">Забронировать</button>
-                    </form>
-                    <div id="serveMessage" class="serve__message"></div>
+                <form id="serveForm" action="./php/save_reserve.php" method="POST" class="serve__form">
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="text" name="фио" class="serve__form-input" required placeholder="Укажите ФИО">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="text" name="номер" class="serve__form-input" required placeholder="Укажите номер телефона">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="number" name="человек" class="serve__form-input" required placeholder="Укажите количество человек" min="1">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="date" name="дата" id="dateInput" class="serve__form-input" required>
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <select name="время" id="timeSelect" class="serve__form-input" required>
+                            <option value="">Выберите время</option>
+                            <!-- Варианты времени будут добавлены через JavaScript -->
+                        </select>
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <select name="столик" class="serve__form-input" required>
+                            <option value="">Выберите столик</option>
+                            <option value="table1">Столик 1</option>
+                            <option value="table2">Столик 2</option>
+                            <option value="table3">Столик 3</option>
+                            <option value="table4">Столик 4</option>
+                            <option value="table5">Столик 5</option>
+                            <option value="table6">Столик 6</option>
+                            <option value="table7">Столик 7</option>
+                            <option value="table8">Столик 8</option>
+                        </select>
+                    </label>
+                </div>
+                <button class="serve__form-btn" type="submit">Забронировать</button>
+            </form>
+            <div id="serveMessage" class="serve__message"></div>
         </section>
         <footer class="footer">
             <div class="footer__container container">
@@ -206,31 +214,200 @@
     <script src="./js/script.js"></script>
 
     <script>
-        document.getElementById('serveForm').addEventListener('submit', function (e) {
-            e.preventDefault(); // Предотвращаем стандартное поведение формы
-    
-            const form = e.target;
-            const formData = new FormData(form);
-    
-            fetch(form.action, {
-                method: form.method,
-                body: formData
+document.addEventListener('DOMContentLoaded', function () {
+    const timeSelect = document.getElementById('timeSelect');
+    const dateInput = document.getElementById('dateInput');
+    const tableSelect = document.querySelector('select[name="столик"]');
+    const serveForm = document.getElementById('serveForm');
+    const successModal = document.getElementById('successModal');
+    const closeModal = document.getElementById('closeModal');
+
+    // График работы кафе
+    const schedule = {
+        1: { start: "08:00", end: "18:00" }, // Понедельник
+        2: { start: "08:00", end: "18:00" }, // Вторник
+        3: { start: "08:00", end: "18:00" }, // Среда
+        4: { start: "08:00", end: "18:00" }, // Четверг
+        5: { start: "08:00", end: "17:00" }, // Пятница
+        6: { start: "08:00", end: "15:00" }, // Суббота
+        0: null // Воскресенье (выходной)
+    };
+
+    // Функция для получения доступных временных интервалов
+    function getAvailableTimes(dayOfWeek, bookedTimes) {
+        const times = [];
+        const workHours = schedule[dayOfWeek];
+        if (!workHours) return times;
+
+        let [startHour, startMinute] = workHours.start.split(':').map(Number);
+        let [endHour, endMinute] = workHours.end.split(':').map(Number);
+
+        // Исключаем последние 30 минут рабочего времени
+        if (endMinute < 30) {
+            endMinute += 30;
+            endHour -= 1;
+        } else {
+            endMinute -= 30;
+        }
+
+        while (startHour < endHour || (startHour === endHour && startMinute <= endMinute)) {
+            const time = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
+            if (!bookedTimes.includes(time)) {
+                times.push(time);
+            }
+            startMinute += 30;
+            if (startMinute >= 60) {
+                startMinute = 0;
+                startHour++;
+            }
+        }
+        return times;
+    }
+
+    // Функция для проверки, является ли время прошедшим
+    function isPastTime(date, time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        const now = new Date();
+        const selectedDate = new Date(date);
+        selectedDate.setHours(hours, minutes, 0, 0);
+
+        return selectedDate < now; // Возвращает true, если время уже прошло
+    }
+
+    // Функция для обновления доступности времени
+    function updateTimeAvailability() {
+        const selectedDate = dateInput.value;
+
+        if (!selectedDate) {
+            console.warn('Дата не выбрана');
+            return;
+        }
+
+        // Запрос на сервер для получения забронированных времён
+        fetch(`./php/get_booked_times.php?date=${selectedDate}`)
+            .then(response => response.json())
+            .then(data => {
+                const bookedTimes = data.bookedTimes || [];
+                const dayOfWeek = new Date(selectedDate).getDay();
+                const availableTimes = getAvailableTimes(dayOfWeek, bookedTimes);
+
+                // Заполняем выпадающий список времени
+                timeSelect.innerHTML = '<option value="">Выберите время</option>';
+                availableTimes.forEach(time => {
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+
+                    // Проверяем, является ли время прошедшим
+                    if (isPastTime(selectedDate, time)) {
+                        option.disabled = true;
+                        option.classList.add('past-time');
+                    }
+
+                    // Проверяем, забронировано ли время
+                    if (bookedTimes.includes(time)) {
+                        option.disabled = true;
+                        option.classList.add('booked-time');
+                    }
+
+                    timeSelect.appendChild(option);
+                });
+
+                // Если нет доступного времени
+                if (availableTimes.length === 0) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Нет доступного времени';
+                    option.disabled = true;
+                    timeSelect.appendChild(option);
+                }
             })
-            .then(response => response.text())
-            .then(result => {
-                // Отображаем сообщение об успехе или ошибке
-                const messageDiv = document.getElementById('serveMessage');
-                messageDiv.textContent = result;
-                messageDiv.style.color = 'green'; // Успешное сообщение
+            .catch(error => console.error('Ошибка при запросе забронированных времён:', error));
+    }
+
+    // Функция для обновления доступности столиков
+    function updateTableAvailability() {
+        const selectedDate = dateInput.value;
+        const selectedTime = timeSelect.value;
+
+        if (!selectedDate || !selectedTime) {
+            console.warn('Дата или время не выбраны');
+            return;
+        }
+
+        // Запрос на сервер для получения забронированных столиков
+        fetch(`./php/get_booked_tables.php?date=${selectedDate}&time=${selectedTime}`)
+            .then(response => response.json())
+            .then(data => {
+                const bookedTables = data.bookedTables || [];
+                Array.from(tableSelect.options).forEach(option => {
+                    if (bookedTables.includes(option.value)) {
+                        option.disabled = true;
+                        option.textContent = `${option.value} (Забронирован)`;
+                    } else {
+                        option.disabled = false;
+                        option.textContent = option.value;
+                    }
+                });
+            })
+            .catch(error => console.error('Ошибка при запросе забронированных столиков:', error));
+    }
+
+    // Обработка отправки формы
+    serveForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение формы
+
+        const formData = new FormData(serveForm);
+
+        fetch('./php/save_reserve.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при отправке формы');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('Ответ сервера:', data);
+
+                // Очищаем форму
+                serveForm.reset();
+
+                // Показываем модальное окно
+                successModal.classList.remove('hidden');
+                successModal.style.visibility = 'visible';
+                successModal.style.opacity = '1';
             })
             .catch(error => {
-                // Обрабатываем ошибки
-                const messageDiv = document.getElementById('serveMessage');
-                messageDiv.textContent = 'Произошла ошибка. Попробуйте снова.';
-                messageDiv.style.color = 'red'; // Сообщение об ошибке
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при бронировании. Попробуйте снова.');
             });
-        });
+    });
+
+    // Закрытие модального окна
+    closeModal.addEventListener('click', function () {
+        successModal.classList.add('hidden');
+        successModal.style.visibility = 'hidden';
+        successModal.style.opacity = '0';
+    });
+
+    // Слушатели событий для обновления времени и столиков
+    dateInput.addEventListener('change', () => {
+        updateTimeAvailability();
+        updateTableAvailability();
+    });
+    timeSelect.addEventListener('change', updateTableAvailability);
+});
     </script>
+
+<div id="successModal" class="modal hidden">
+    <div class="modal-content">
+        <p id="successMessage">Бронирование успешно сохранено!</p>
+        <button id="closeModal" class="modal-button">Ок</button>
+    </div>
+</div>
 
 </body>
 

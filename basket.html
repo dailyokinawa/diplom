@@ -84,7 +84,7 @@
                                     </label>
                                 </div>
                                 <div class="delivery__form-row">
-                                    <textarea name="message" class="delivery__form-textarea" required placeholder="Комментарий курьеру..."></textarea>
+                                    <textarea name="message" class="delivery__form-textarea" placeholder="Комментарий курьеру..."></textarea>
                                 </div>
                             </div>
             
@@ -108,23 +108,7 @@
                                 <label class="payment__label">
                                     <input type="text" name="email" class="payment__input" required placeholder="Эл. почта">
                                 </label>
-                                <div class="payment__form-check">
-                                    <input type="checkbox" id="check" class="payment__form-checkbox" required>
-                                    <label for="check" class="payment__form-check-label">
-                                        <a href="personal_data.html" target="_blank">Соглашаюсь на обработку персональных данных</a>
-                                    </label>
-                                </div>
-                                <div class="payment__form-content">
-                                    <div class="payment__form-content-head">
-                                        <p class="payment__form-content-text">Доставка: бесплатно</p>
-                                        <p class="payment__form-content-text">Доставим в течение часа</p>
-                                    </div>
-                                    <div class="payment__form-cost">
-                                        <p class="payment__form-cost-text">К оплате:</p>
-                                        <span class="payment__form-cost-value">0₽</span>
-                                    </div>
-                                    <button class="payment__form-btn" type="submit">Оплатить</button>
-                                </div>
+                                <button type="submit" class="payment__form-btn">Оплатить</button>
                             </div>
                         </form>
                     </div>
@@ -258,6 +242,55 @@
     </div>
 
     <script src="./js/script.js"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
+    const paymentTabs = document.querySelectorAll('.payment__tab');
+
+    if (!paymentMethods.length || !paymentTabs.length) {
+        console.error('Не удалось найти элементы радиокнопок или их контейнеров.');
+        return;
+    }
+
+    // Функция для изменения цвета фона выбранного метода оплаты
+    function updateTabColors() {
+        // Сбрасываем фон для всех контейнеров радиокнопок
+        paymentTabs.forEach(tab => {
+            tab.style.backgroundColor = ''; // Сброс цвета
+        });
+
+        // Находим выбранный метод оплаты
+        const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
+        if (selectedMethod) {
+            const parentLabel = selectedMethod.closest('.payment__tab'); // Находим родительский <label>
+            if (parentLabel) {
+                switch (selectedMethod.value) {
+                    case 'Наличными':
+                        parentLabel.style.backgroundColor = '#4CAF50'; // Зеленый
+                        break;
+                    case 'Онлайн оплата':
+                        parentLabel.style.backgroundColor = '#2196F3'; // Синий
+                        break;
+                    case 'Картой при получении':
+                        parentLabel.style.backgroundColor = '#FF9800'; // Оранжевый
+                        break;
+                    default:
+                        parentLabel.style.backgroundColor = ''; // Сброс цвета
+                }
+            }
+        }
+    }
+
+    // Добавляем обработчик событий для изменения цвета фона
+    paymentMethods.forEach(method => {
+        method.addEventListener('change', updateTabColors);
+    });
+
+    // Устанавливаем начальный цвет при загрузке страницы
+    updateTabColors();
+});
+    </script>
 
 </body>
 
