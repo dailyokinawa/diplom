@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "Playfair Display";
+    src: url('../fonts/Playfair_Display/PlayfairDisplay-Regular.woff2') format('woff2'),
+        url('../fonts/Playfair_Display/PlayfairDisplay-Regular.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url('../fonts/Playfair_Display/PlayfairDisplay-Medium.woff2') format('woff2'),
+        url('../fonts/Playfair_Display/PlayfairDisplay-Medium.woff') format('woff');
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url('../fonts/Playfair_Display/PlayfairDisplay-SemiBold.woff2') format('woff2'),
+        url('../fonts/Playfair_Display/PlayfairDisplay-SemiBold.woff') format('woff');
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url('../fonts/Playfair_Display/PlayfairDisplay-Bold.woff2') format('woff2'),
+        url('../fonts/Playfair_Display/PlayfairDisplay-Bold.woff') format('woff');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Clicker Script";
+    src: url('../fonts/Clicker_Script/ClickerScript-Regular.woff2') format('woff2'),
+        url('../fonts/Clicker_Script/ClickerScript-Regular.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}

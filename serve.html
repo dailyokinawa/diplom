@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css?v=5">
+    <link rel="stylesheet" href="./css/stylename.css?v=7">
+    <title>Бронирование</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <header class="header">
+            <div class="header__container container">
+                <nav class="header__inner">
+                    <a href="index.html" class="header__logo">
+                        Lost Heaven
+                    </a>
+                    <ul class="header__list">
+                        <li class="header__item">
+                            <a href="menu.html" class="header__item-link">Меню</a>
+                        </li>
+                        <li class="header__item">
+                            <a href="serve.html" class="header__item-link">Бронь</a>
+                        </li>
+                    </ul>
+                    <div class="header__right">
+                        <a href="basket.html" class="header__basket-link">Корзина</a>
+                        <button class="burger-btn" type="button">
+                            <span class="burger-btn-line b1"></span>
+                            <span class="burger-btn-line b2"></span>
+                            <span class="burger-btn-line b3"></span>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="page__serve">
+            <div class="serve__container container">
+                <div class="serve__inner">
+                    <h2 class="title-serve title">Для брони заполните форму</h2>
+                <form id="serveForm" action="./php/save_reserve.php" method="POST" class="serve__form">
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="text" name="фио" class="serve__form-input" required placeholder="ФИО">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="text" name="номер" class="serve__form-input" required placeholder="Номер телефона">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="number" name="человек" class="serve__form-input" required placeholder="Количество человек" min="1">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <input type="date" name="дата" id="dateInput" class="serve__form-input" required placeholder="Выберите дату">
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <select name="время" id="timeSelect" class="serve__form-input" required>
+                            <option value="">Выберите время</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="serve__form-row">
+                    <label class="serve__form-label">
+                        <select name="столик" class="serve__form-input" required>
+                            <option value="">Выберите столик</option>
+                            <option value="table1">Столик 1</option>
+                            <option value="table2">Столик 2</option>
+                            <option value="table3">Столик 3</option>
+                            <option value="table4">Столик 4</option>
+                            <option value="table5">Столик 5</option>
+                            <option value="table6">Столик 6</option>
+                        </select>
+                    </label>
+                </div>
+                <button class="serve__form-btn" type="submit">Забронировать</button>
+            </form>
+            <div id="serveMessage" class="serve__message"></div>
+        </section>
+        <footer class="footer">
+            <div class="footer__container container">
+                <div class="footer__inner">
+                    <div class="footer__top">
+                        <div class="footer__columns">
+                            <div class="footer__column">
+                                <h4 class="footer__column-name">Переходы</h4>
+                                <ul class="footer__column-list">
+                                    <li class="footer__column-item">
+                                        <a href="menu.html" class="footer__column-item-link">
+                                            Меню
+                                        </a>
+                                    </li>
+                                    <li class="footer__column-item">
+                                        <a href="#" class="footer__column-item-link">Бронь</a>
+                                    </li>
+                                    <li class="footer__column-item">
+                                        <a href="basket.html" class="footer__column-item-link">Корзина</a>
+                                    </li>
+                                    <li class="footer__column-item">
+                                        <a href="personal_data.html" class="footer__column-item-link">Политика персональных данных</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="footer__column">
+                                <h4 class="footer__column-name">Связаться с нами</h4>
+                                <ul class="footer__column-list">
+                                    <li class="footer__column-item">
+                                        <a class="footer__column-item-link">Россия, г. Москва, Южная ул., д. 13 </a>
+                                    </li>
+                                    <li class="footer__column-item">
+                                        <a href="tel:+74956396936" class="footer__column-item-link">+7 495-639-6936</a>
+                                    </li>
+                                    <li class="footer__column-item">
+                                        <a href="mailto:dailyweeknd@yandex.ru"
+                                           class="footer__column-item-link">dailyweeknd@yandex.ru</a>
+                                    </li>
+                                    <li class="footer__column-item">
+                                        <a href="www.lostheavencoffee.ct.ws"
+                                           class="footer__column-item-link">www.lostheavencoffee.ct.ws</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="footer__column">
+                                <h4 class="footer__column-name">График работы</h4>
+                                <ul class="footer__column-list">
+                                    <li class="footer__column-item">
+                                        ПН-ЧТ - 8:00 - 18:00
+                                    </li>
+                                    <li class="footer__column-item">
+                                        ПТ - 8:00 - 17:00
+                                    </li>
+                                    <li class="footer__column-item">
+                                        СБ - 8:00 - 15:00
+                                    </li>
+                                    <li class="footer__column-item">
+                                        ВС - ВЫХОДНОЙ
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer__bottom">
+                        <ul class="footer__social">
+                            <li class="footer__social-item">
+                                <a href="#" class="footer__social-item-link">
+                                    <svg width="40" height="40" viewBox="0 0 80 74" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M39.7699 6.15503C21.4661 6.15503 6.62891 19.9311 6.62891 36.9259C6.62891 52.2836 18.7486 65.0135 34.5933 67.3244V45.8186H26.1755V36.9259H34.5933V30.147C34.5933 22.4359 39.5379 18.1772 47.1106 18.1772C50.7363 18.1772 54.5276 18.7772 54.5276 18.7772V26.3468H50.3518C46.2324 26.3468 44.9498 28.7193 44.9498 31.1533V36.9259H54.1399L52.6717 45.8186H44.9498V67.3244C60.7912 65.0166 72.9109 52.2805 72.9109 36.9259C72.9109 19.9311 58.0737 6.15503 39.7699 6.15503Z"
+                                              fill="white" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="footer__social-item">
+                                <a href="#" class="footer__social-item-link">
+                                    <svg width="40" height="40" viewBox="0 0 81 74" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M40.5902 6.15454C49.5946 6.15454 50.718 6.18531 54.2509 6.33917C57.7804 6.49302 60.1831 7.00689 62.2975 7.77001C64.4848 8.55159 66.3275 9.61011 68.1701 11.3179C69.8553 12.8561 71.1593 14.7168 71.9913 16.7705C72.8098 18.7306 73.3666 20.9645 73.5323 24.2416C73.6881 27.5218 73.7312 28.5649 73.7312 36.9254C73.7312 45.2858 73.698 46.3289 73.5323 49.6091C73.3666 52.8862 72.8098 55.1171 71.9913 57.0803C71.1617 59.1351 69.8574 60.9962 68.1701 62.5329C66.5129 64.097 64.509 65.3076 62.2975 66.0807C60.1864 66.8408 57.7804 67.3577 54.2509 67.5116C50.718 67.6562 49.5946 67.6962 40.5902 67.6962C31.5858 67.6962 30.4623 67.6654 26.9294 67.5116C23.3999 67.3577 20.9972 66.8408 18.8828 66.0807C16.6701 65.3098 14.6657 64.0989 13.0102 62.5329C11.3247 60.9949 10.0207 59.1341 9.18906 57.0803C8.36716 55.1202 7.81371 52.8862 7.648 49.6091C7.49224 46.3289 7.44916 45.2858 7.44916 36.9254C7.44916 28.5649 7.4823 27.5218 7.648 24.2416C7.81371 20.9615 8.36716 18.7337 9.18906 16.7705C10.0184 14.7155 11.3227 12.8543 13.0102 11.3179C14.6662 9.75236 16.6704 8.54152 18.8828 7.77001C20.9972 7.00689 23.3966 6.49302 26.9294 6.33917C30.4623 6.19454 31.5858 6.15454 40.5902 6.15454ZM40.5902 21.54C36.1954 21.54 31.9806 23.1609 28.873 26.0462C25.7655 28.9316 24.0197 32.8449 24.0197 36.9254C24.0197 41.0058 25.7655 44.9192 28.873 47.8045C31.9806 50.6898 36.1954 52.3108 40.5902 52.3108C44.9849 52.3108 49.1997 50.6898 52.3073 47.8045C55.4148 44.9192 57.1607 41.0058 57.1607 36.9254C57.1607 32.8449 55.4148 28.9316 52.3073 26.0462C49.1997 23.1609 44.9849 21.54 40.5902 21.54ZM62.1318 20.7707C62.1318 19.7506 61.6954 18.7722 60.9185 18.0509C60.1416 17.3296 59.0879 16.9243 57.9892 16.9243C56.8905 16.9243 55.8368 17.3296 55.0599 18.0509C54.283 18.7722 53.8466 19.7506 53.8466 20.7707C53.8466 21.7908 54.283 22.7691 55.0599 23.4905C55.8368 24.2118 56.8905 24.617 57.9892 24.617C59.0879 24.617 60.1416 24.2118 60.9185 23.4905C61.6954 22.7691 62.1318 21.7908 62.1318 20.7707ZM40.5902 27.6941C43.227 27.6941 45.7559 28.6667 47.6204 30.3979C49.485 32.1291 50.5325 34.4771 50.5325 36.9254C50.5325 39.3737 49.485 41.7217 47.6204 43.4529C45.7559 45.1841 43.227 46.1566 40.5902 46.1566C37.9533 46.1566 35.4244 45.1841 33.5599 43.4529C31.6953 41.7217 30.6479 39.3737 30.6479 36.9254C30.6479 34.4771 31.6953 32.1291 33.5599 30.3979C35.4244 28.6667 37.9533 27.6941 40.5902 27.6941Z"
+                                              fill="white" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="footer__social-item">
+                                <a href="#" class="footer__social-item-link">
+                                    <svg width="40" height="40" viewBox="0 0 81 74" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M72.0366 19.9939C73.5512 25.4773 73.5512 36.924 73.5512 36.924C73.5512 36.924 73.5512 48.3708 72.0366 53.8542C71.1948 56.8851 68.7325 59.2698 65.6139 60.076C59.9501 61.5407 40.4102 61.5407 40.4102 61.5407C40.4102 61.5407 20.8802 61.5407 15.2064 60.076C12.0746 59.2575 9.61555 56.8758 8.78371 53.8542C7.26917 48.3708 7.26917 36.924 7.26917 36.924C7.26917 36.924 7.26917 25.4773 8.78371 19.9939C9.62549 16.963 12.0879 14.5783 15.2064 13.7721C20.8802 12.3074 40.4102 12.3074 40.4102 12.3074C40.4102 12.3074 59.9501 12.3074 65.6139 13.7721C68.7457 14.5906 71.2048 16.9722 72.0366 19.9939ZM33.782 47.6938L53.6666 36.924L33.782 26.1542V47.6938Z"
+                                              fill="white" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="footer__social-item">
+                                <a href="#" class="footer__social-item-link">
+                                    <svg width="40" height="40" viewBox="0 0 80 74" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M73.909 17.4051C71.3789 18.4442 68.6958 19.1266 65.9486 19.4298C68.8443 17.8218 71.0115 15.2912 72.0465 12.3094C69.329 13.811 66.3496 14.8634 63.2443 15.4327C61.1584 13.3605 58.3936 11.9862 55.3798 11.5235C52.3659 11.0608 49.2718 11.5355 46.5785 12.8739C43.8852 14.2123 41.7437 16.3394 40.4867 18.9245C39.2298 21.5096 38.9279 24.4078 39.628 27.1687C34.117 26.9122 28.7257 25.5825 23.8041 23.2659C18.8825 20.9493 14.5407 17.6976 11.0604 13.7218C9.82855 15.6864 9.18119 17.9197 9.18465 20.1929C9.18465 24.6547 11.6305 28.5964 15.3489 30.9043C13.1483 30.8399 10.9962 30.2882 9.07198 29.2949V29.4549C9.07264 32.4265 10.1801 35.3064 12.2066 37.6063C14.2331 39.9063 17.0539 41.4847 20.1908 42.0741C18.148 42.5881 16.0061 42.6638 13.9271 42.2956C14.8116 44.8534 16.5354 47.0903 18.8572 48.6932C21.179 50.2961 23.9825 51.1847 26.8753 51.2345C24.0003 53.331 20.7084 54.8808 17.1878 55.7953C13.6673 56.7098 9.98709 56.971 6.35773 56.5641C12.6933 60.3471 20.0685 62.3555 27.6011 62.349C53.0965 62.349 67.0389 42.7387 67.0389 25.7317C67.0389 25.1778 67.0223 24.6178 66.9958 24.07C69.7096 22.2489 72.0518 19.993 73.9124 17.4082L73.909 17.4051Z"
+                                              fill="white" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="burger-menu">
+            <div class="burger-menu__window">
+                <ul class="header__list">
+                    <li class="header__item">
+                        <a href="menu.html" class="header__item-link">Меню</a>
+                    </li>
+                    <li class="header__item">
+                        <a href="serve.html" class="header__item-link">Бронь</a>
+                    </li>
+                    <li class="header__item">
+                        <a href="basket.html" class="header__item-link">Корзина</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const timeSelect = document.getElementById('timeSelect');
+    const dateInput = document.getElementById('dateInput');
+    const tableSelect = document.querySelector('select[name="столик"]');
+    const serveForm = document.getElementById('serveForm');
+    const successModal = document.getElementById('successModal');
+    const closeModal = document.getElementById('closeModal');
+
+    const schedule = {
+        1: { start: "08:00", end: "18:00" },
+        2: { start: "08:00", end: "18:00" },
+        3: { start: "08:00", end: "18:00" },
+        4: { start: "08:00", end: "18:00" },
+        5: { start: "08:00", end: "17:00" },
+        6: { start: "08:00", end: "15:00" },
+        0: null
+    };
+
+    function getAvailableTimes(dayOfWeek) {
+        const times = [];
+        const workHours = schedule[dayOfWeek];
+        if (!workHours) return times;
+
+        let [startHour, startMinute] = workHours.start.split(':').map(Number);
+        let [endHour, endMinute] = workHours.end.split(':').map(Number);
+
+        if (endMinute < 30) {
+            endMinute += 30;
+            endHour -= 1;
+        } else {
+            endMinute -= 30;
+        }
+
+        while (startHour < endHour || (startHour === endHour && startMinute <= endMinute)) {
+            const time = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
+            times.push(time);
+            startMinute += 30;
+            if (startMinute >= 60) {
+                startMinute = 0;
+                startHour++;
+            }
+        }
+        return times;
+    }
+
+    function isPastTime(date, time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        const now = new Date();
+        const selectedDate = new Date(date);
+        selectedDate.setHours(hours, minutes, 0, 0);
+        return selectedDate < now;
+    }
+
+    function updateTimeAvailability() {
+        const selectedDate = dateInput.value;
+        if (!selectedDate) {
+            console.warn('Дата не выбрана');
+            return;
+        }
+
+        fetch(`./php/get_booked_times.php?date=${selectedDate}`)
+            .then(response => response.json())
+            .then(data => {
+                const bookedTimeMap = data.bookedTimes || {};
+                const dayOfWeek = new Date(selectedDate).getDay();
+                const allTimes = getAvailableTimes(dayOfWeek);
+
+                timeSelect.innerHTML = '<option value="">Выберите время</option>';
+                let hasAvailable = false;
+
+                allTimes.forEach(time => {
+                    const bookedCount = bookedTimeMap[time] || 0;
+                    if (bookedCount >= 6) return;
+
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+
+                    if (isPastTime(selectedDate, time)) {
+                        option.disabled = true;
+                        option.classList.add('past-time');
+                    }
+
+                    timeSelect.appendChild(option);
+                    hasAvailable = true;
+                });
+
+                if (!hasAvailable) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Нет доступного времени';
+                    option.disabled = true;
+                    timeSelect.appendChild(option);
+                }
+            })
+            .catch(error => console.error('Ошибка при запросе забронированных времён:', error));
+    }
+
+    function updateTableAvailability() {
+        const selectedDate = dateInput.value;
+        const selectedTime = timeSelect.value;
+
+        if (!selectedDate || !selectedTime) {
+            console.warn('Дата или время не выбраны');
+            return;
+        }
+
+        fetch(`./php/get_booked_tables.php?date=${selectedDate}&time=${selectedTime}`)
+            .then(response => response.json())
+            .then(data => {
+                const bookedTables = data.bookedTables || [];
+                Array.from(tableSelect.options).forEach(option => {
+                    if (bookedTables.includes(option.value)) {
+                        option.disabled = true;
+                        option.textContent = `${option.value} (Забронирован)`;
+                    } else {
+                        option.disabled = false;
+                        option.textContent = option.value;
+                    }
+                });
+            })
+            .catch(error => console.error('Ошибка при запросе забронированных столиков:', error));
+    }
+
+    serveForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(serveForm);
+
+        fetch('./php/save_reserve.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при отправке формы');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('Ответ сервера:', data);
+                serveForm.reset();
+                successModal.classList.remove('hidden');
+                successModal.style.visibility = 'visible';
+                successModal.style.opacity = '1';
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при бронировании. Попробуйте снова.');
+            });
+    });
+
+    closeModal.addEventListener('click', function () {
+        successModal.classList.add('hidden');
+        successModal.style.visibility = 'hidden';
+        successModal.style.opacity = '0';
+    });
+
+    dateInput.addEventListener('change', () => {
+        updateTimeAvailability();
+        updateTableAvailability();
+    });
+    timeSelect.addEventListener('change', updateTableAvailability);
+});
+</script>
+
+<div id="successModal" class="modal hidden">
+    <div class="modal-content">
+        <p id="successMessage">Бронирование успешно сохранено!</p>
+        <button id="closeModal" class="modal-button">Ок</button>
+    </div>
+</div>
+
+</body>
+
+</html>
