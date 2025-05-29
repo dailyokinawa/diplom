@@ -5,10 +5,11 @@ $db = '';
 $user = '';
 $pass = '';
 
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die('Ошибка подключения: ' . $conn->connect_error);
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die('Ошибка подключения к базе данных: ' . $e->getMessage());
 }
 
 require '../phpmailer/PHPMailer.php';

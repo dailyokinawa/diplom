@@ -5,8 +5,8 @@ require 'phpmailer/Exception.php';
 
 $host = 'sql308.infinityfree.com';
 $db = '';
-$user = ''; // Укажите имя пользователя MySQL
-$pass = ''; // Укажите пароль
+$user = '';
+$pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
 

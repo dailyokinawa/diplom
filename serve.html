@@ -4,9 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css?v=5">
-    <link rel="stylesheet" href="./css/stylename.css?v=7">
+    <link rel="stylesheet" href="./css/style.css?v=8">
+    <link rel="stylesheet" href="./css/stylename.css?v=9">
     <title>Бронирование</title>
+
+    <style>
+    input[type="date"]::-webkit-datetime-edit { 
+        opacity: 0; 
+    }
+
+    input[type="date"]:valid::-webkit-datetime-edit,
+    input[type="date"]:focus::-webkit-datetime-edit { 
+    opacity: 1; 
+    }
+
+    .serve__form-label {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+    .date-placeholder {
+        position: absolute;
+        top: 50%;
+        left: 40px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #c4c4c4;
+        transition: opacity 0.2s;
+        font-weight: 500;
+        font-size: 18px;
+    }
+    input[type="date"]:valid + .date-placeholder,
+    input[type="date"]:focus + .date-placeholder {
+        opacity: 0;
+    }
+    </style>
 </head>
 
 <body>
@@ -59,7 +91,8 @@
                 </div>
                 <div class="serve__form-row">
                     <label class="serve__form-label">
-                        <input type="date" name="дата" id="dateInput" class="serve__form-input" required placeholder="Выберите дату">
+                        <input type="date" name="дата" id="dateInput" class="serve__form-input" required>
+                        <label for="dateInput" class="date-placeholder">Выберите дату</label>
                     </label>
                 </div>
                 <div class="serve__form-row">
