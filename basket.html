@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css?v=8">
-    <link rel="stylesheet" href="./css/stylename.css?v=9">
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css?v=9">
+    <link rel="stylesheet" href="./css/stylename.css?v=10">
+    <title>Корзина</title>
 </head>
 
 <body>
@@ -281,13 +281,13 @@
             if (parentLabel) {
                 switch (selectedMethod.value) {
                     case 'Наличными':
-                        parentLabel.style.backgroundColor = '#4CAF50'; // Зеленый
+                        parentLabel.style.backgroundColor = '#4CAF50';
                         break;
                     case 'Онлайн оплата':
-                        parentLabel.style.backgroundColor = '#2196F3'; // Синий
+                        parentLabel.style.backgroundColor = '#2196F3';
                         break;
                     case 'Картой при получении':
-                        parentLabel.style.backgroundColor = '#FF9800'; // Оранжевый
+                        parentLabel.style.backgroundColor = '#FF9800';
                         break;
                     default:
                         parentLabel.style.backgroundColor = ''; // Сброс цвета
@@ -309,43 +309,50 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const paymentForm = document.querySelector('form[action="./php/save_payment.php"]');
-        const successModal = document.getElementById('successModal');
-        const closeModal = document.getElementById('closeModal');
-        const paymentTabs = document.querySelectorAll('.payment__tab');
-        
-        if (paymentForm) {
-            paymentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
+    const paymentForm = document.querySelector('form[action="./php/save_payment.php"]');
+    const successModal = document.getElementById('successModal');
+    const closeModal = document.getElementById('closeModal');
+    const paymentTabs = document.querySelectorAll('.payment__tab');
+    
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            fetch('./php/save_payment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(() => {
+                // Очищаем корзину после оплаты
+                localStorage.removeItem('basket');
+                console.log('Корзина очищена');
                 
-                fetch('./php/save_payment.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.text())
-                .then(() => {
-                    paymentForm.reset();
-                    // Сбрасываем цвет всех кнопок
-                    paymentTabs.forEach(tab => {
-                        tab.style.backgroundColor = '';
-                    });
-                    successModal.classList.remove('hidden');
-                    successModal.style.visibility = 'visible';
-                    successModal.style.opacity = '1';
+                paymentForm.reset();
+                // Сбрасываем цвет всех кнопок
+                paymentTabs.forEach(tab => {
+                    tab.style.backgroundColor = '';
                 });
+                successModal.classList.remove('hidden');
+                successModal.style.visibility = 'visible';
+                successModal.style.opacity = '1';
             });
-        }
+        });
+    }
+    
+    if (closeModal) {
+        closeModal.addEventListener('click', function() {
+            successModal.classList.add('hidden');
+            successModal.style.visibility = 'hidden';
+            successModal.style.opacity = '0';
         
-        if (closeModal) {
-            closeModal.addEventListener('click', function() {
-                successModal.classList.add('hidden');
-                successModal.style.visibility = 'hidden';
-                successModal.style.opacity = '0';
-            });
-        }
-    });
-    </script>
+            // Перезагрузка страницы для отображения пустой корзины
+            window.location.reload();
+        });
+    }
+});
+</script>
 
     <div id="successModal" class="modal hidden">
         <div class="modal-content">

@@ -2401,7 +2401,7 @@ input[type="date"].serve__form-input:invalid::-webkit-datetime-edit {
 	}
 
 	.prev, .next {
-		top: 40%
+		top: 35%
 	}
 
 	.slideshow-container {
